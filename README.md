@@ -1,1 +1,1 @@
-# cursoionic
+Repositório para estudos do Ionic

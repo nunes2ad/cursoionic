@@ -1,11 +1,11 @@
 @extends('app')
 @section('content')
-    <div class="content">
+    <div class="container">
         <h3>Catgorias</h3>
         <p>
-            <a href="{{ route('admin.category.create') }}" class="btn btn-default">Nova categoria</a>
+            <a href="{{ route('admin.categories.create') }}" class="btn btn-default">Nova categoria</a>
         </p>
-        <table class="table table-responsive">
+        <table class="table">
             <thead>
             <tr>
                 <th>ID</th>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use CodeDelivery\Http\Requests;
 use CodeDelivery\Http\Controllers\Controller;
+use CodeDelivery\Http\Requests\AdminCategoryRequest;
+
 
 class CategoriesController extends Controller
 {
@@ -24,9 +26,23 @@ class CategoriesController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request){
+    public function store(AdminCategoryRequest $request){
         $data = $request->all();
         $this->categoryRepository->create($data);
+
+        return redirect()->route('admin.categories.index');
+    }
+
+    public function edit($id){
+
+        $category = $this->categoryRepository->find($id);
+        return view('admin.categories.edit', compact('category'));
+    }
+
+    public function update(AdminCategoryRequest $request, $id){
+
+        $data = $request->all();
+        $this->categoryRepository->update($data, $id);
 
         return redirect()->route('admin.categories.index');
     }

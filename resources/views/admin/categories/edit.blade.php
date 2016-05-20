@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
     <div class="container">
-        <h3>Nova catgoria</h3>
+        <h3>Editando categoria {{ $category->name  }}</h3>
 
         @if($errors->any())
             <ul class="alert">
@@ -11,14 +11,14 @@
             </ul>
         @endif
 
-        {!! Form::open(['route'=>'admin.categories.store', 'class'=>'form']) !!}
+        {!! Form::model($category, ['route'=> ['admin.categories.update', $category->id]]) !!}
 
             <div class="form-group">
                 {!! Form::label('Name','Nome:') !!}
                 {!! Form::text('name',null,['class'=>'form-control']) !!}
             </div>
             <div class="form-group">
-                {!! Form::submit('Criar categoria', ['class' =>'btn btn-primary']) !!}
+                {!! Form::submit('Salvar categoria', ['class' =>'btn btn-primary']) !!}
             </div>
         {!! Form::close() !!}
     </div>

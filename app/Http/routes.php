@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
+Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => 'auth.checkrole'],function(){
 
     Route::group(['prefix'=>'categories','as'=>'categories.'],function(){
         

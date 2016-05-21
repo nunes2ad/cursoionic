@@ -15,22 +15,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
 
-    $repository = app()->make('CodeDelivery\Repositories\CategoryRepository');
-    return $repository->all();
+Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
+
+    Route::group(['prefix'=>'categories','as'=>'categories.'],function(){
+        
+        Route::get('/', ['uses' => 'CategoriesController@index', 'as' =>'index']);
+        Route::get('edit/{id}', ['uses' => 'CategoriesController@edit', 'as' =>'edit']);
+        Route::post('update/{id}', ['uses' => 'CategoriesController@update', 'as' =>'update']);
+        Route::get('create', ['uses' => 'CategoriesController@create', 'as' =>'create']);
+        Route::post('store', ['uses' => 'CategoriesController@store', 'as' =>'store']);
+        
+    });
+
+    Route::group(['prefix'=>'products','as'=>'products.'],function(){
+        
+        Route::get('/', ['uses' => 'ProductsController@index', 'as' =>'index']);
+        Route::get('edit/{id}', ['uses' => 'ProductsController@edit', 'as' =>'edit']);
+        Route::post('update/{id}', ['uses' => 'ProductsController@update', 'as' =>'update']);
+        Route::get('create', ['uses' => 'ProductsController@create', 'as' =>'create']);
+        Route::post('store', ['uses' => 'ProductsController@store', 'as' =>'store']);
+        Route::get('destroy/{id}', ['uses' => 'ProductsController@destroy', 'as' =>'destroy']);
+
+    });
+
 });
 
-
-Route::get('/admin/categories', ['uses' => 'CategoriesController@index', 'as' =>'admin.categories.index']);
-Route::get('/admin/categories/edit/{id}', ['uses' => 'CategoriesController@edit', 'as' =>'admin.categories.edit']);
-Route::post('/admin/categories/update/{id}', ['uses' => 'CategoriesController@update', 'as' =>'admin.categories.update']);
-Route::get('/admin/categories/create', ['uses' => 'CategoriesController@create', 'as' =>'admin.categories.create']);
-Route::post('/admin/categories/store', ['uses' => 'CategoriesController@store', 'as' =>'admin.categories.store']);
-
-Route::get('/admin/products', ['uses' => 'ProductsController@index', 'as' =>'admin.products.index']);
-Route::get('/admin/products/edit/{id}', ['uses' => 'ProductsController@edit', 'as' =>'admin.products.edit']);
-Route::post('/admin/products/update/{id}', ['uses' => 'ProductsController@update', 'as' =>'admin.products.update']);
-Route::get('/admin/products/create', ['uses' => 'ProductsController@create', 'as' =>'admin.products.create']);
-Route::post('/admin/products/store', ['uses' => 'ProductsController@store', 'as' =>'admin.products.store']);
-Route::get('/admin/products/destroy/{id}', ['uses' => 'ProductsController@destroy', 'as' =>'admin.products.destroy']);

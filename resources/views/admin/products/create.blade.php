@@ -5,9 +5,9 @@
 
         @include('admin._check')
 
-        {!! Form::open(['route'=>'admin.categories.store', 'class'=>'form']) !!}
+        {!! Form::open(['route'=>'admin.products.store', 'class'=>'form']) !!}
 
-            @include('admin.categories._form')
+            @include('admin.products._form')
 
         {!! Form::close() !!}
     </div>

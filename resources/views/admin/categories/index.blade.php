@@ -2,6 +2,7 @@
 @section('content')
     <div class="container">
         <h3>Catgorias</h3>
+        @include('admin._check')
         <p>
             <a href="{{ route('admin.categories.create') }}" class="btn btn-default">Nova categoria</a>
         </p>

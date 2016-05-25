@@ -30,6 +30,7 @@ class CategoriesController extends Controller
         $data = $request->all();
         $this->categoryRepository->create($data);
 
+        $request->session()->flash('success', 'Categoria adicionada com sucesso');
         return redirect()->route('admin.categories.index');
     }
 
@@ -43,6 +44,8 @@ class CategoriesController extends Controller
 
         $data = $request->all();
         $this->categoryRepository->update($data, $id);
+
+        $request->session()->flash('success', 'Categoria atualizada com sucesso');
 
         return redirect()->route('admin.categories.index');
     }

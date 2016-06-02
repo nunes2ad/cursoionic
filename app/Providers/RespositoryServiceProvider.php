@@ -15,7 +15,7 @@ class RespositoryServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $models = ['Category','Product','Client','Order','OrderItem'];
+        $models = ['Category','Product','Client','Order','OrderItem','User'];
         foreach($models as $model){
 
             $rep = "CodeDelivery\\Repositories\\{$model}Repository";

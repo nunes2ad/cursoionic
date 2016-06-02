@@ -1,10 +1,10 @@
 @extends('app')
 @section('content')
     <div class="container">
-        <h3>Produtos</h3>
+        <h3>Clientes</h3>
         @include('admin._check')
         <p>
-            <a href="{{ route('admin.clients.create') }}" class="btn btn-default">Novo Produto</a>
+            <a href="{{ route('admin.clients.create') }}" class="btn btn-default">Novo Cliente</a>
         </p>
         <table class="table">
             <thead>

@@ -31,7 +31,7 @@ class ClientsController extends Controller
 
     public function store(AdminClientRequest $request){
         $data = $request->all();
-        $this->clientRepository->create($data);
+        $this->clientService->create($data);
 
         return redirect()->route('admin.clients.index');
     }
@@ -55,10 +55,10 @@ class ClientsController extends Controller
 
         try{
             $this->clientRepository->find($id)->delete();
-            request()->session()->flash('success','Produto removido com sucesso!');
+            request()->session()->flash('success','Cliente removido com sucesso!');
         }
         catch (\Mockery\CountValidator\Exception $e){
-            request()->session()->flash('error','Não foi possível remover o produto!');
+            request()->session()->flash('error','Não foi possível remover o cliente!');
         }
 
         return redirect()->route('admin.clients.index');

@@ -23,7 +23,17 @@ class AdminClientRequest extends Request
      */
     public function rules()
     {
+        /*
+        'phone',
+        'address',
+        'city',
+        'state',
+        'zipcode'
+         */
+
         return [
+
+
         ];
     }
 

@@ -1,13 +1,13 @@
 @extends('app')
 @section('content')
     <div class="container">
-        <h3>Novo cliente</h3>
+        <h3>Novo pedido</h3>
 
         @include('admin._check')
 
-        {!! Form::open(['route'=>'admin.clients.store', 'class'=>'form']) !!}
+        {!! Form::open(['route'=>'admin.orders.store', 'class'=>'form']) !!}
 
-            @include('admin.clients._form')
+            @include('admin.orders._form')
 
         {!! Form::close() !!}
     </div>

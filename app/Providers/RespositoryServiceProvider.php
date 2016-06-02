@@ -14,15 +14,14 @@ class RespositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            'CodeDelivery\Repositories\CategoryRepository',
-            'CodeDelivery\Repositories\CategoryRepositoryEloquent'
-        );
 
-        $this->app->bind(
-            'CodeDelivery\Repositories\ProductRepository',
-            'CodeDelivery\Repositories\ProductRepositoryEloquent'
-        );
+        $models = ['Category','Product','Client','Order','OrderItem'];
+        foreach($models as $model){
 
+            $rep = "CodeDelivery\\Repositories\\{$model}Repository";
+            $eloq = "CodeDelivery\\Repositories\\{$model}RepositoryEloquent";
+
+            $this->app->bind($rep,$eloq);
+        }
     }
 }

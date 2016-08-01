@@ -3,6 +3,7 @@
 namespace CodeDelivery\Http\Controllers;
 
 use CodeDelivery\Repositories\OrderRepository;
+use CodeDelivery\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
 use CodeDelivery\Http\Requests;
@@ -19,11 +20,17 @@ class OrdersController extends Controller
     public function index(){
 
         $orders = $this->orderRepository->paginate(10);
-        return view('admin.orders.index', array('orders'=>$orders));
+        $list_status = [0=>"Pendente", 1=>"A caminho", 2=>"Entregue"];
+
+        return view('admin.orders.index', compact('orders','list_status'));
     }
 
-    public function create(){
-        return view('admin.orders.create');
+    public function create(UserRepository $userRepository){
+
+        $list_status = [0=>"Pendente", 1=>"A caminho", 2=>"Entregue"];
+        $deliveryman = $userRepository->getDeliverymen();
+
+        return view('admin.orders.edit', compact('order','list_status','deliveryman'));
     }
 
     public function store(AdminOrderRequest $request){
@@ -34,10 +41,13 @@ class OrdersController extends Controller
         return redirect()->route('admin.orders.index');
     }
 
-    public function edit($id){
+    public function edit($id, UserRepository $userRepository){
+
+        $list_status = [0=>"Pendente", 1=>"A caminho", 2=>"Entregue"];
+        $deliveryman = $userRepository->getDeliverymen();
 
         $order = $this->orderRepository->find($id);
-        return view('admin.orders.edit', compact('order'));
+        return view('admin.orders.edit', compact('order','list_status','deliveryman'));
     }
 
     public function update(AdminOrderRequest $request, $id){

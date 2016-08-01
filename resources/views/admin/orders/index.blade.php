@@ -1,10 +1,10 @@
 @extends('app')
 @section('content')
     <div class="container">
-        <h3>Catgorias</h3>
+        <h3>Pedidos</h3>
         @include('admin._check')
         <p>
-            <a href="{{ route('admin.orders.create') }}" class="btn btn-default">Nova categoria</a>
+            <a href="{{ route('admin.orders.create') }}" class="btn btn-default">Novo pedido</a>
         </p>
         <table class="table">
             <thead>
@@ -36,7 +36,7 @@
                             --
                         @endif
                     </td>
-                    <td>{{$order->status}}</td>
+                    <td>{{ $list_status[$order->status] }}</td>
                     <td><a class="btn btn-default btn-small" href="{{ route('admin.orders.edit',['id'=>$order->id])  }}">Editar</a></td>
                 </tr>
             @endforeach

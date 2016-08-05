@@ -61,5 +61,15 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => 'auth.checkrole']
         Route::get('destroy/{id}', ['uses' => 'OrdersController@destroy', 'as' =>'destroy']);
 
     });
+
+    Route::group(['prefix'=>'cupoms','as'=>'cupoms.'],function(){
+
+        Route::get('/', ['uses' => 'CupomsController@index', 'as' =>'index']);
+        Route::get('edit/{id}', ['uses' => 'CupomsController@edit', 'as' =>'edit']);
+        Route::post('update/{id}', ['uses' => 'CupomsController@update', 'as' =>'update']);
+        Route::get('create', ['uses' => 'CupomsController@create', 'as' =>'create']);
+        Route::post('store', ['uses' => 'CupomsController@store', 'as' =>'store']);
+
+    });
 });
 

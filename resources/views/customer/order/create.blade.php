@@ -5,7 +5,7 @@
 
         @include('admin._check')
         <div class="container">
-            {!! Form::open(['class'=>'form']) !!}
+            {!! Form::open(['route'=>'customer.order.store', 'class'=>'form','id'=>'form1']) !!}
             <div class="form-group">
                 <label>Total:</label>
                 <p id="total"></p>
@@ -33,6 +33,9 @@
                     </tbody>
                     </thead>
                 </table>
+            </div>
+            <div class="form-group">
+                {!! Form::submit('Criar pedido',['class'=>'btn btn-primary']) !!}
             </div>
             {!! Form::close() !!}
         </div>
@@ -80,7 +83,9 @@
 
                 tr = $('table tbody tr').eq(i);
                 price = tr.find(':selected').data('price');
-                qtd = tr.find(':input').val();
+                qtd = tr.find('input').val();
+
+                console.log(price+' * '+qtd);
 
                 total += price * qtd;
                 $("#total").html(total);

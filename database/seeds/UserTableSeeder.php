@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use CodeDelivery\Models\User;
+use CodeDelivery\Models\Client;
 
 class UserTableSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class UserTableSeeder extends Seeder
                 'password' => bcrypt(123456),
                 'remember_token' => str_random(10),
             ]
-        );
+        )->client()->save(factory(Client::class)->make());
 
         factory(User::class)->create(
             [
@@ -29,7 +30,7 @@ class UserTableSeeder extends Seeder
                 'role'  => 'admin',
                 'remember_token' => str_random(10),
             ]
-        );
+        )->client()->save(factory(Client::class)->make());
 
         factory(User::class, 10)->create()->each(function($u){
 

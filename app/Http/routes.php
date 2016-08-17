@@ -11,12 +11,16 @@
 |
 */
 
+Route::get('/home', function () {
+    return view('welcome');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => 'auth.checkrole'],function(){
+Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => 'auth.checkrole:admin'],function(){
 
     Route::group(['prefix'=>'categories','as'=>'categories.'],function(){
         
@@ -74,7 +78,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware' => 'auth.checkrole']
 });
 
 
-Route::group(['prefix'=>'customer','as'=>'customer.'],function(){
+Route::group(['prefix'=>'customer','as'=>'customer.', 'middleware' => 'auth.checkrole:client'],function(){
 
     Route::get('order/create', ['uses' => 'CheckoutController@create', 'as' =>'order.create']);
     Route::post('order/post', ['uses' => 'CheckoutController@store', 'as' =>'order.store']);

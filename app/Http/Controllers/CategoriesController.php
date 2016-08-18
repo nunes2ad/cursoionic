@@ -30,7 +30,8 @@ class CategoriesController extends Controller
         $data = $request->all();
         $this->categoryRepository->create($data);
 
-        $request->session()->flash('success', 'Categoria adicionada com sucesso');
+        $request->session()->flash('message', 'Categoria adicionada com sucesso');
+        request()->session()->flash('type','success');
         return redirect()->route('admin.categories.index');
     }
 
@@ -45,8 +46,27 @@ class CategoriesController extends Controller
         $data = $request->all();
         $this->categoryRepository->update($data, $id);
 
-        $request->session()->flash('success', 'Categoria atualizada com sucesso');
+        $request->session()->flash('message', 'Categoria atualizada com sucesso');
+        request()->session()->flash('type','success');
 
         return redirect()->route('admin.categories.index');
+    }
+
+    public function destroy($id){
+
+        try{
+            $category = $this->categoryRepository->find($id);
+            $category->delete();
+
+            request()->session()->flash('message','Categoria removida com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível remover o categoria!');
+            request()->session()->flash('type','danger');
+        }
+
+        return redirect()->route('admin.categories.index');
+
     }
 }

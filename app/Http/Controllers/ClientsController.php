@@ -31,7 +31,16 @@ class ClientsController extends Controller
 
     public function store(AdminClientRequest $request){
         $data = $request->all();
-        $this->clientService->create($data);
+
+        try{
+            $this->clientService->create($data);
+            request()->session()->flash('message','Cliente inserido com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível criar o cliente!');
+            request()->session()->flash('type','danger');
+        }
 
         return redirect()->route('admin.clients.index');
     }
@@ -46,7 +55,17 @@ class ClientsController extends Controller
     public function update(AdminClientRequest $request, $id){
 
         $data = $request->all();
-        $this->clientService->update($data, $id);
+
+
+        try{
+            $this->clientService->update($data, $id);
+            request()->session()->flash('message','Cliente atualizado com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível atualizar o cliente!');
+            request()->session()->flash('type','danger');
+        }
 
         return redirect()->route('admin.clients.index');
     }
@@ -55,11 +74,14 @@ class ClientsController extends Controller
 
         try{
             $this->clientRepository->find($id)->delete();
-            request()->session()->flash('success','Cliente removido com sucesso!');
+            request()->session()->flash('message','Cliente removido com sucesso!');
+            request()->session()->flash('type','success');
         }
-        catch (\Mockery\CountValidator\Exception $e){
-            request()->session()->flash('error','Não foi possível remover o cliente!');
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível remover o cliente!');
+            request()->session()->flash('type','danger');
         }
+
 
         return redirect()->route('admin.clients.index');
 

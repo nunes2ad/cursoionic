@@ -6,9 +6,7 @@
     </ul>
 @endif
 <div class="flash-message">
-    @foreach(['success','warning','alert','error'] as $flag)
-        @if(Session::has($flag))
-            <div class="alert alert-success">{!! session($flag) !!}</div>
-        @endif
-    @endforeach
+    @if(Session::has('message'))
+        <div class="alert alert-{{ session('type') }}">{!! session('message') !!}</div>
+    @endif
 </div>

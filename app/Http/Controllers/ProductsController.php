@@ -13,6 +13,13 @@ use PhpSpec\Exception\Exception;
 
 class ProductsController extends Controller
 {
+    /**
+     * The application's global HTTP middleware stack.
+     *
+     * @var \CodeDelivery\Repositories\ProductRepository;
+     */
+    private $productRepository;
+
     public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository){
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
@@ -31,7 +38,18 @@ class ProductsController extends Controller
 
     public function store(AdminProductRequest $request){
         $data = $request->all();
-        $this->productRepository->create($data);
+
+        try{
+            $this->productRepository->create($data);
+            request()->session()->flash('message','Produto inserido com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível inserir o produto!');
+            request()->session()->flash('type','danger');
+        }
+
+
 
         return redirect()->route('admin.products.index');
     }
@@ -47,7 +65,17 @@ class ProductsController extends Controller
     public function update(AdminProductRequest $request, $id){
 
         $data = $request->all();
-        $this->productRepository->update($data, $id);
+
+        try{
+            $this->productRepository->update($data, $id);
+            request()->session()->flash('message','Produto atualizado com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível atualizar o produto!');
+            request()->session()->flash('type','danger');
+        }
+
 
         return redirect()->route('admin.products.index');
     }
@@ -55,11 +83,15 @@ class ProductsController extends Controller
     public function destroy($id){
 
         try{
-            $this->productRepository->find($id)->delete();
-            request()->session()->flash('success','Produto removido com sucesso!');
+            $product = $this->productRepository->find($id);
+            $product->delete();
+
+            request()->session()->flash('message','Produto removido com sucesso!');
+            request()->session()->flash('type','success');
         }
-        catch (\Mockery\CountValidator\Exception $e){
-            request()->session()->flash('error','Não foi possível remover o produto!');
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível remover o produto!');
+            request()->session()->flash('type','danger');
         }
 
         return redirect()->route('admin.products.index');

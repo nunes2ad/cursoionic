@@ -6,7 +6,7 @@
         <p>
             <a href="{{ route('admin.categories.create') }}" class="btn btn-default">Nova categoria</a>
         </p>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -19,7 +19,11 @@
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
-                    <td><a class="btn btn-default btn-small" href="{{ route('admin.categories.edit',['id'=>$category->id])  }}">Editar</a></td>
+                    <td>
+                        <a class="btn btn-default btn-small" href="{{ route('admin.categories.edit',['id'=>$category->id])  }}">Editar</a>
+                        <a class="btn btn-default btn-small" href="{{ route('admin.categories.destroy',['id'=>$category->id])  }}">Apagar</a>
+                    </td>
+
                 </tr>
             @endforeach
             </tbody>

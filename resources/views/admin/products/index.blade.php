@@ -6,7 +6,7 @@
         <p>
             <a href="{{ route('admin.products.create') }}" class="btn btn-default">Novo Produto</a>
         </p>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ID</th>
@@ -23,7 +23,7 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td>{{ number_format($product->price,2) }}</td>
-                    <td>
+                    <td class="right">
                         <a class="btn btn-default btn-small" href="{{ route('admin.products.edit',['id'=>$product->id])  }}">Editar</a>
                         <a class="btn btn-default btn-small" href="{{ route('admin.products.destroy',['id'=>$product->id])  }}">Apagar</a>
                     </td>

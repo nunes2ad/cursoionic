@@ -35,9 +35,18 @@ class OrdersController extends Controller
 
     public function store(AdminOrderRequest $request){
         $data = $request->all();
-        $this->orderRepository->create($data);
 
-        $request->session()->flash('success', 'Categoria adicionada com sucesso');
+        try{
+            $this->orderRepository->create($data);
+
+            request()->session()->flash('message','Pedido criado com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi criar seu pedido!');
+            request()->session()->flash('type','danger');
+        }
+
         return redirect()->route('admin.orders.index');
     }
 
@@ -53,9 +62,16 @@ class OrdersController extends Controller
     public function update(AdminOrderRequest $request, $id){
 
         $data = $request->all();
-        $this->orderRepository->update($data, $id);
+        try{
+            $this->orderRepository->update($data, $id);
 
-        $request->session()->flash('success', 'Categoria atualizada com sucesso');
+            request()->session()->flash('message','Pedido atualizado com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi atualizar seu pedido!');
+            request()->session()->flash('type','danger');
+        }
 
         return redirect()->route('admin.orders.index');
     }

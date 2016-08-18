@@ -28,9 +28,16 @@ class CupomsController extends Controller
 
     public function store(AdminCupomRequest $request){
         $data = $request->all();
-        $this->cupomRepository->create($data);
 
-        $request->session()->flash('success', 'Categoria adicionada com sucesso');
+        try{
+            $this->cupomRepository->create($data);
+            request()->session()->flash('message','Cupom inserido com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível criar o cupom!');
+            request()->session()->flash('type','danger');
+        }
         return redirect()->route('admin.cupoms.index');
     }
 
@@ -43,10 +50,35 @@ class CupomsController extends Controller
     public function update(AdminCupomRequest $request, $id){
 
         $data = $request->all();
-        $this->cupomRepository->update($data, $id);
 
-        $request->session()->flash('success', 'Categoria atualizada com sucesso');
+        try{
+            $this->cupomRepository->update($data, $id);
+            request()->session()->flash('message','Cupom atualizado com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível atualizar o cupom!');
+            request()->session()->flash('type','danger');
+        }
 
         return redirect()->route('admin.cupoms.index');
+    }
+
+    public function destroy($id){
+
+        try{
+            $product = $this->cupomRepository->find($id);
+            $product->delete();
+
+            request()->session()->flash('message','Cupom removido com sucesso!');
+            request()->session()->flash('type','success');
+        }
+        catch (\Exception $e){
+            request()->session()->flash('message','Não foi possível remover o cupom!');
+            request()->session()->flash('type','danger');
+        }
+
+        return redirect()->route('admin.products.index');
+
     }
 }

@@ -6,7 +6,7 @@
         <p>
             <a href="{{ route('admin.orders.create') }}" class="btn btn-default">Novo pedido</a>
         </p>
-        <table class="table">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th>ID</th>

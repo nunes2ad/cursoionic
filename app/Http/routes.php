@@ -87,3 +87,27 @@ Route::group(['prefix'=>'customer','as'=>'customer.', 'middleware' => 'auth.chec
     Route::get('order', ['uses' => 'CheckoutController@index', 'as' =>'order.index']);
 
 });
+
+Route::group(['prefix'=>'api','as'=>'api.', 'middleware' => 'oauth'],function(){
+
+    Route::get('pedidos', function() {
+        return [
+            'id' => 1,
+            'client' => 'Nunes',
+            'total' => 50
+        ];
+    });
+
+    Route::get('teste', function() {
+        return [
+            'success!'
+        ];
+    });
+
+
+});
+
+
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});

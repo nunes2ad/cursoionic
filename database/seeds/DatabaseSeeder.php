@@ -12,12 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         Model::unguard();
 
         $this->call(UserTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
         $this->call(OrderTableSeeder::class);
         $this->call(CupomTableSeeder::class);
+        $this->call(OAuthClientTableSeeder::class);
 
         Model::reguard();
     }

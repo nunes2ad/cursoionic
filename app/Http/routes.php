@@ -103,18 +103,23 @@ Route::group(['prefix'=>'api','as'=>'api.', 'middleware' => 'oauth'],function(){
     });
 
     Route::group(['prefix'=>'deliveryman','as'=>'deliveryman.', 'middleware' => 'oauth.checkrole:deliveryman'],function(){
-        Route::get('pedidos', function() {
-            return [
-                'id' => 2,
-                'client' => 'Entregador',
-                'total' => 2
-            ];
-        });
+
+        Route::resource('order',
+            'Api\Deliveryman\DeliverymanCheckoutController',
+            ['except' => ['create','edit','destroy','store']]
+        );
+
+        Route::patch('order/{id}/update-status', [
+            'uses'  => 'Api\Deliveryman\DeliverymanCheckoutController@updateStatus',
+            'as'    => 'orders.update_status'
+        ]);
     });
 
 
 
 });
+
+
 
 
 Route::post('oauth/access_token', function() {

@@ -36,7 +36,7 @@ class ClientCheckoutController extends Controller
         $id = Authorizer::getResourceOwnerId();
         $clientId = $this->userRepository->find($id)->client->id;
 
-        $orders = $this->orderRepository->with('items')->scopeQuery(function($query) use($clientId){
+        $orders = $this->orderRepository->with('items.product.category')->scopeQuery(function($query) use($clientId){
             return $query->where('client_id','=',$clientId);
         })->paginate();
 

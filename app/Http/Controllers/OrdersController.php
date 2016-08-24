@@ -62,6 +62,7 @@ class OrdersController extends Controller
     public function update(AdminOrderRequest $request, $id){
 
         $data = $request->all();
+
         try{
             $this->orderRepository->update($data, $id);
 

@@ -23,16 +23,7 @@ class AdminClientRequest extends Request
      */
     public function rules()
     {
-        /*
-        'phone',
-        'address',
-        'city',
-        'state',
-        'zipcode'
-         */
-
         return [
-
 
         ];
     }
@@ -40,7 +31,7 @@ class AdminClientRequest extends Request
     public function messages()
     {
         return [
-            'required' => 'Campo :attribute é obrigatório',
+            'required' => 'O campo ":attribute" é obrigatório',
         ];
     }
 }

@@ -11,6 +11,7 @@
 |
 */
 
+use CodeDelivery\Repositories\UserRepository;
 
 Route::get('/home', function () {
     return view('welcome');
@@ -116,6 +117,11 @@ Route::group(['prefix'=>'api','as'=>'api.', 'middleware' => 'oauth'],function(){
     });
 
 
+    Route::get('authenticated', function(UserRepository $userRepository){
+
+        $userId = Authorizer::getResourceOwnerId();
+        return $userRepository->with('client')->find($userId);
+    });
 
 });
 
